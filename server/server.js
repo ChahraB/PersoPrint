@@ -35,7 +35,7 @@ const connectDB = async () => {
 };
 
 connectDB();
-app.use(express.static(path.join(__dirname, "client/build")));
+app.use(express.static(path.join(__dirname, "client/dist")));
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
@@ -51,7 +51,7 @@ app.get('/', (req, res) => {
   });
 });
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client/build", "index.html"));
+    res.sendFile(path.join(__dirname, "client/dist", "index.html"));
 });
 
 // Middleware d'erreur global
