@@ -35,6 +35,7 @@ const connectDB = async () => {
 };
 
 connectDB();
+app.use(express.static(path.join(__dirname, "client/build")));
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
@@ -49,6 +50,9 @@ app.get('/', (req, res) => {
     mongoConnected: mongoose.connection.readyState === 1 
   });
 });
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client/build", "index.html"));
+});
 
 // Middleware d'erreur global
 app.use((err, req, res, next) => {
@@ -56,7 +60,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: err.message });
 });
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT ;
 app.listen(PORT, () => {
   console.log(`✅ Serveur démarré sur le port ${PORT}`);
 });
