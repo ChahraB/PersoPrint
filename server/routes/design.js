@@ -11,7 +11,9 @@ router.get("/", async (req, res) => {
         const images = designs.map(img => ({
             id: img._id,
             name: img.name,
-            url: img.imageUrl
+              url: img.imageUrl.replace(
+        "/upload/",
+        "/upload/w_200,q_auto,f_auto/"
         }));
 
         res.json(images);
